@@ -6,7 +6,12 @@ pipeline {
         PORT = "${env.BRANCH_NAME == 'development' ? '8001' : '8000'}"
     }
     stages {
-        stage('fetch') {
+	stage('cleanup') {
+            steps {
+                cleanWs()
+            }
+        }
+	stage('fetch') {
             steps {
                 sh """
                 git checkout ${env.BRANCH_NAME}
